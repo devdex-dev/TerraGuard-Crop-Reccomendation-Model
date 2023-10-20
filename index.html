@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ML Model API</title>
+</head>
+<body>
+    <button id="predict-button">Predict</button>
+    <div id="result"></div>
+    <script>
+        const request = new Request('http://localhost:5000/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          
+          body: JSON.stringify({
+            'input_data': [0.0, 1.0, 7.0, 5.0, 6.0]
+          })
+        });
+      
+        fetch(request)
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error(`Request failed with status: ${response.status}`);
+            }
+          })
+          .then(data => {
+            // Handle the response data here
+            console.log(data);
+          })
+          .catch(error => {
+            // Handle any errors that occurred during the fetch
+            console.error(error);
+          });
+      </script>
+</body>
+</html>
