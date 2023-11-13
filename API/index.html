@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    pre {
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="result"></div>
+
+  <script>
+    const request = new Request('https://dexxyy.pythonanywhere.com/predict', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'input_data': [0.0, 1, 1.56, 0.59, 155.64]
+      })
+    });
+
+    fetch(request)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`Request failed with status: ${response.status}`);
+        }
+      })
+      .then(data => {
+        // Handle the response data here
+        const formattedPrediction = formatPrediction(data);
+        document.getElementById('result').innerHTML = formattedPrediction;
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch
+        console.error(error);
+      });
+
+    function formatPrediction(data) {
+      // Format the prediction data
+      const formattedData = JSON.stringify(data, null, 2);
+
+      // Remove brackets and quotation marks
+      const cleanedData = formattedData.replace(/[\{\}\"]/g, '');
+
+      // Bold labels
+      const boldText = cleanedData
+        .replace(/Duofos\(0-20-0\)/g, '<b>Duofos(0-20-0)</b>')
+        .replace(/Muriate of Potash\(0-0-60\)/g, '<b>Muriate of Potash(0-0-60)</b>')
+        .replace(/Urea\(46-0-0\)/g, '<b>Urea(46-0-0)</b>');
+
+      return `<pre>${boldText}</pre>`;
+    }
+  </script>
+</body>
+</html>
