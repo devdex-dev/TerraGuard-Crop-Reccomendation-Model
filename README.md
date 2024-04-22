@@ -1,2 +1,2 @@
 # TerraGuardModel
-Decision Tree Classification with it's deployment to js.
+Crop Reccomendation using Decision Tree Classification.
