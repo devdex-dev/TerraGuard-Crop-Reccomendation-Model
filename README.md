@@ -1,2 +1,2 @@
 # TerraGuardModel
-Crop Reccomendation using Decision Tree Classification.
+Crop Recommendation using Decision Tree Classification.
